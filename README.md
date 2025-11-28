@@ -169,8 +169,3 @@ Make sure XML writes are done with proper locking or synchronization if your app
 
 ---
 
-If you want, I can:
-- Provide sample code files for `Login.aspx.cs` and `Register.aspx.cs` that wire up the XML helpers and session logic.
-- Create a small helper DLL skeleton for XML read/write operations.
-
-Tell me which of those you'd like next and I'll scaffold the code accordingly.
