@@ -24,6 +24,7 @@ namespace Assignment6
             lblMessage.Text = "";
         }
 
+        // Dummy CAPTCHA logic
         private void GenerateCaptcha()
         {
             string chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
