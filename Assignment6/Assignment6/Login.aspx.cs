@@ -34,6 +34,7 @@ namespace Assignment6
 
                     if (user != null)
                     {
+                        // TODO: link hashing implementation
                         // string storedHash = (string)user.Element("Password");
                         // if (SecurityHelper.VerifyPassword(password, storedHash))
                         // {
@@ -54,6 +55,7 @@ namespace Assignment6
 
                     if (user != null)
                     {
+                        // TODO: link hashing implementation
                         // string storedHash = (string)user.Element("Password");
                         // if (SecurityHelper.VerifyPassword(password, storedHash))
                         // {
