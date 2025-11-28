@@ -13,7 +13,7 @@
   - [ ] Login.aspx.cs core logic
 - [ ] Member
 - [ ] Staff
-- [ ] Logout
+- [x] Logout
 - [ ] Error
 
 ## Overview
