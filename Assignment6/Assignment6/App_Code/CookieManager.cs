@@ -9,12 +9,15 @@ public class CookieManager
     /// <summary>
     /// Create a user preference cookie
     /// </summary>
-    public static void SetUserPreference(string username, string preference)
+    public static void SetUserPreference(string username, string role, string extraSettings = null)
     {
         HttpCookie userCookie = new HttpCookie("UserPreference");
         userCookie["Username"] = username;
-        userCookie["Preference"] = preference;
+        userCookie["Role"] = role;
         userCookie["LastVisit"] = DateTime.Now.ToString();
+        
+        if (!string.IsNullOrEmpty(extraSettings)) cookie["Settings"] = extraSettings;
+
         userCookie.Expires = DateTime.Now.AddDays(30);
         HttpContext.Current.Response.Cookies.Add(userCookie);
     }
