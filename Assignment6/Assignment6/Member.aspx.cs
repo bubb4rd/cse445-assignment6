@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Web.UI;
+using System.Xml.Linq;
 
 namespace Assignment6
 {
@@ -24,8 +24,20 @@ namespace Assignment6
 
             if (!IsPostBack)
             {
+                
                 string username = Session["Username"] as string ?? User.Identity.Name;
-                lblWelcomeMember.Text = "Welcome, " + username + " (Member)";
+                lblWelcomeMember.Text = "Welcome, " + username;
+
+                string xmlPath = Server.MapPath("~/App_Data/Member.xml");
+                XDocument doc = XDocument.Load(xmlPath);
+
+                var userElement = doc.Root
+                    .Elements("User")
+                    .FirstOrDefault(u => (string)u.Element("Username") == username);
+
+                string email = userElement != null
+                    ? (string)userElement.Element("Email")
+                    : null;
 
                 // Read cookie values
                 string cookieUser = CookieManager.GetUserPreference("Username");
@@ -33,26 +45,23 @@ namespace Assignment6
                 string lastLogin  = CookieManager.GetUserPreference("LastLogin");
                 string settings   = CookieManager.GetUserPreference("Settings");
 
-                lblMemberCookieInfo.Text =
-                    "Cookie Username: " + (cookieUser ?? "(none)") + "<br/>" +
-                    "Cookie Role: " + (cookieRole ?? "(none)") + "<br/>" +
-                    "Last Login: " + (lastLogin ?? "(unknown)") + "<br/>" +
-                    "Settings: " + (settings ?? "(none)");
-                if (Application["TotalVisitors"] != null &&
-                    Application["CurrentUsers"] != null &&
-                    Application["ApplicationStartTime"] != null)
-                {
-                    int totalVisitors = (int)Application["TotalVisitors"];
-                    int currentUsers = (int)Application["CurrentUsers"];
-                    DateTime startTime = (DateTime)Application["ApplicationStartTime"];
+                lblUsername.Text = username;
+                lblRole.Text = role;
+                lblEmail.Text = email;
+                // if (Application["TotalVisitors"] != null &&
+                //     Application["CurrentUsers"] != null &&
+                //     Application["ApplicationStartTime"] != null)
+                // {
+                //     int totalVisitors = (int)Application["TotalVisitors"];
+                //     int currentUsers = (int)Application["CurrentUsers"];
+                //     DateTime startTime = (DateTime)Application["ApplicationStartTime"];
 
-                    lblMemberAppState.Text =
-                        "Total Visitors: " + totalVisitors +
-                        "<br/>Current Users: " + currentUsers +
-                        "<br/>Application Start: " + startTime;
-                }
+                //     lblMemberAppState.Text =
+                //         "Total Visitors: " + totalVisitors +
+                //         "<br/>Current Users: " + currentUsers +
+                //         "<br/>Application Start: " + startTime;
+                // }
             }
         }
-
-    }
+    }   
 }
