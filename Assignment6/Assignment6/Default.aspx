@@ -1,0 +1,210 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assignment 6 - CSE 445</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+        th { background-color: #4CAF50; color: white; }
+        .section { margin: 30px 0; padding: 20px; background-color: #f9f9f9; border-radius: 5px; }
+        h1 { color: #333; }
+        h2 { color: #4CAF50; }
+        h3 { color: #555; }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <h1>CSE 445 Assignment 6</h1>
+            <h2>Team Members: Bo Hubbard, Wyatt Belscher, Jon Kruja</h2>
+            <h3>Deployment Site: webstrar45.fulton.asu.edu/pagex/</h3>
+            
+            <hr />
+            
+            <!-- Application and Components Summary Table -->
+            <h2>Application and Components Summary Table</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Provider</th>
+                        <th>Component Type</th>
+                        <th>Description</th>
+                        <th>Operations/Methods</th>
+                        <th>Input/Output</th>
+                        <th>TryIt</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Bo Hubbard</td>
+                        <td>Global.asax (Local)</td>
+                        <td>Application and session event handlers for state management</td>
+                        <td>Application_Start, Session_Start, Session_End</td>
+                        <td>No input. Output: Application["TotalVisitors"], Application["CurrentUsers"]</td>
+                        <td>See "Global.asax Testing" below</td>
+                    </tr>
+                    <tr>
+                        <td>Bo Hubbard</td>
+                        <td>Cookie Manager (DLL/Class)</td>
+                        <td>Manages HTTP cookies for user preferences and visit tracking</td>
+                        <td>SetUserPreference(), GetUserPreference(), TrackVisit(), DeleteCookie()</td>
+                        <td>Input: username (string), preference (string). Output: Cookie values (string)</td>
+                        <td>See "Cookie Testing" below</td>
+                    </tr>
+                    <tr>
+                        <td>Bo Hubbard</td>
+                        <td>Web Service (Remote)</td>
+                        <td>Validation and utility service for user input and calculations</td>
+                        <td>GetServerTime(), ValidateUsername(), ValidatePassword(), CalculateBMI()</td>
+                        <td>Various: string, bool, double</td>
+                        <td><asp:HyperLink ID="lnkService" runat="server" NavigateUrl="~/SimpleService.asmx" Text="Service Link" Target="_blank" /></td>
+                    </tr>
+                    <tr>
+                        <td>Wyatt Belscher</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Wyatt Belscher</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Wyatt Belscher</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Jon Kruja</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Jon Kruja</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Jon Kruja</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <hr />
+            
+            <!-- Global.asax TryIt Section -->
+            <div class="section">
+                <h2>Global.asax Testing</h2>
+                <p><strong>Description:</strong> This demonstrates Application state management via Global.asax event handlers.</p>
+                
+                <asp:Button ID="btnShowAppState" runat="server" Text="Show Application State" 
+                            OnClick="btnShowAppState_Click" />
+                <br /><br />
+                <asp:Label ID="lblAppState" runat="server" ForeColor="Blue"></asp:Label>
+            </div>
+            
+            <hr />
+            
+            <!-- Cookie TryIt Section -->
+            <div class="section">
+                <h2>Cookie Testing</h2>
+                <p><strong>Description:</strong> This demonstrates cookie creation, reading, and deletion using CookieManager class.</p>
+                
+                <asp:Label ID="Label1" runat="server" Text="Username: "></asp:Label>
+                <asp:TextBox ID="txtUsername" runat="server"></asp:TextBox>
+                <br /><br />
+                
+                <asp:Label ID="Label2" runat="server" Text="Preference: "></asp:Label>
+                <asp:TextBox ID="txtPreference" runat="server"></asp:TextBox>
+                <br /><br />
+                
+                <asp:Button ID="btnSetCookie" runat="server" Text="Set Cookie" 
+                            OnClick="btnSetCookie_Click" />
+                <asp:Button ID="btnReadCookie" runat="server" Text="Read Cookie" 
+                            OnClick="btnReadCookie_Click" />
+                <asp:Button ID="btnDeleteCookie" runat="server" Text="Delete Cookie" 
+                            OnClick="btnDeleteCookie_Click" />
+                <br /><br />
+                
+                <asp:Label ID="lblCookieOutput" runat="server" ForeColor="Green"></asp:Label>
+            </div>
+            
+            <hr />
+            
+            <!-- Session State TryIt -->
+            <div class="section">
+                <h2>Session State Testing</h2>
+                <p><strong>Description:</strong> This demonstrates session state tracking initialized by Global.asax Session_Start.</p>
+                
+                <asp:Button ID="btnSessionDemo" runat="server" Text="Show Session Info" 
+                            OnClick="btnSessionDemo_Click" />
+                <br /><br />
+                <asp:Label ID="lblSessionOutput" runat="server" ForeColor="Purple"></asp:Label>
+            </div>
+            
+            <hr />
+            
+            <!-- Web Service TryIt -->
+            <div class="section">
+                <h2>Web Service Testing</h2>
+                <p><strong>Description:</strong> This tests the SimpleService web service methods.</p>
+                
+                <h3>Test GetServerTime()</h3>
+                <asp:Button ID="btnTestServerTime" runat="server" Text="Get Server Time" 
+                            OnClick="btnTestServerTime_Click" />
+                <br />
+                <asp:Label ID="lblServerTime" runat="server"></asp:Label>
+                <br /><br />
+                
+                <h3>Test ValidateUsername()</h3>
+                <asp:Label ID="Label3" runat="server" Text="Username: "></asp:Label>
+                <asp:TextBox ID="txtTestUsername" runat="server"></asp:TextBox>
+                <asp:Button ID="btnTestUsername" runat="server" Text="Validate" 
+                            OnClick="btnTestUsername_Click" />
+                <br />
+                <asp:Label ID="lblUsernameResult" runat="server"></asp:Label>
+                <br /><br />
+                
+                <h3>Test CalculateBMI()</h3>
+                <asp:Label ID="Label4" runat="server" Text="Height (inches): "></asp:Label>
+                <asp:TextBox ID="txtHeight" runat="server"></asp:TextBox>
+                <br />
+                <asp:Label ID="Label5" runat="server" Text="Weight (lbs): "></asp:Label>
+                <asp:TextBox ID="txtWeight" runat="server"></asp:TextBox>
+                <br />
+                <asp:Button ID="btnTestBMI" runat="server" Text="Calculate BMI" 
+                            OnClick="btnTestBMI_Click" />
+                <br />
+                <asp:Label ID="lblBMIResult" runat="server"></asp:Label>
+            </div>
+            
+            <!-- DLL Service TryIt -->
+
+            <!-- User Control Service TryIt -->
+        </div>
+    </form>
+</body>
+</html>

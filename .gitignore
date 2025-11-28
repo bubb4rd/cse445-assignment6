@@ -1,0 +1,56 @@
+# Build output
+bin/
+obj/
+[Bb]uild/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# NuGet
+packages/
+*.nupkg
+project.lock.json
+project.assets.json
+*.nuget.props
+*.nuget.targets
+
+# Logs
+*.log
+
+# Resharper / Rider / other IDEs
+_ReSharper*/
+*.DotSettings.user
+.idea/
+*.rsuser
+
+# Publish profiles and local settings
+*.pubxml
+*.pubxml.user
+*.vspscc
+*.vssscc
+
+# Temporary files
+*.TMP
+*~
+*.tmp
+*.bak
+*.swp
+
+# OneDrive / macOS / Windows extras
+.desktop.ini
+Thumbs.db
+.DS_Store
+
+# IIS / local server files
+_IISExpress/
+*.dbmdl
