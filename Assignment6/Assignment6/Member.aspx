@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Member.aspx.cs" Inherits="Assignment6.Member" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Member.aspx.cs" Inherits="Assignment6.Member" %>
 
 <!DOCTYPE html>
 
@@ -12,6 +12,8 @@
 
         <p>
             <asp:Label ID="lblWelcomeMember" runat="server" ForeColor="Green" />
+            <asp:Label ID="lblMemberCookieInfo" runat="server" ForeColor="Green" />
+        
         </p>
 
         <h3>Application State</h3>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Xml.Linq;
@@ -12,7 +13,30 @@ namespace Assignment6
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            // If already authenticated, redirect based on role
+            if (!IsPostBack)
+            {
+                if (User.Identity.IsAuthenticated)
+                {
+                    string role = Session["Role"] as string;
+
+                    if (String.Equals(role, "Staff", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Response.Redirect("~/Staff.aspx");
+                        return;
+                    }
+                    else if (String.Equals(role, "Member", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Response.Redirect("~/Member.aspx");
+                        return;
+                    }
+
+                    // Fallback if Session lost but auth cookie exists:
+                    // send them to a default page
+                    Response.Redirect("~/Default.aspx");
+                    return;
+                }
+            }
         }
 
         // helper function
@@ -24,7 +48,6 @@ namespace Assignment6
             {
                 if (selectedRole == "Staff")
                 {
-                    // Check Staff.xml
                     string staffPath = Server.MapPath("~/App_Data/Staff.xml");
                     XDocument staffDoc = XDocument.Load(staffPath);
 
@@ -41,11 +64,14 @@ namespace Assignment6
                         //     role = "Staff";
                         //     return true;
                         // }
+
+                        // For now, accept any password for testing:
+                        role = "Staff";
+                        return true;
                     }
                 }
                 else if (selectedRole == "Member")
                 {
-                    // Check Member.xml
                     string memberPath = Server.MapPath("~/App_Data/Member.xml");
                     XDocument memberDoc = XDocument.Load(memberPath);
 
@@ -55,13 +81,12 @@ namespace Assignment6
 
                     if (user != null)
                     {
-                        // TODO: link hashing implementation
-                        // string storedHash = (string)user.Element("Password");
-                        // if (SecurityHelper.VerifyPassword(password, storedHash))
-                        // {
-                        //     role = "Member";
-                        //     return true;
-                        // }
+                        // For debugging:
+                        // lblMessage.Text = username + " found!";
+
+                        // TODO: hashing check later
+                        role = "Member";
+                        return true;
                     }
                 }
             }
@@ -73,10 +98,10 @@ namespace Assignment6
             return false;
         }
 
-
         protected void btnLogin_Click(object sender, EventArgs e)
         {
             lblMessage.Text = "";
+
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text.Trim();
 
@@ -85,12 +110,56 @@ namespace Assignment6
                 lblMessage.Text = "Please enter username and password.";
                 return;
             }
-            
-            string selectedRole;
 
-            if (memberRadio.Checked) selectedRole = "Member";
-            else if (staffRadio.Checked) selectedRole = "Staff";
-            else selectedRole = "Member"; // fallback, should not happen with GroupName + default
+            string selectedRole;
+            if (memberRadio.Checked)
+                selectedRole = "Member";
+            else if (staffRadio.Checked)
+                selectedRole = "Staff";
+            else
+                selectedRole = "Member"; // fallback
+
+            string role;
+            if (!ValidateUser(username, password, selectedRole, out role))
+            {
+                lblMessage.Text = "Invalid username/password for selected role.";
+                return;
+            }
+
+            // At this point: user exists and role is "Member" or "Staff"
+            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(
+                1,                      // version
+                username,               // name
+                DateTime.Now,           // issueDate
+                DateTime.Now.AddMinutes(30), // expiration
+                false,                  // isPersistent; or chkRemember.Checked
+                role,                   // userData (store role here)
+                FormsAuthentication.FormsCookiePath
+            );
+
+            string encTicket = FormsAuthentication.Encrypt(ticket);
+            HttpCookie authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
+            Response.Cookies.Add(authCookie);
+
+            // Set Session too (optional but helpful)
+            Session["Username"] = username;
+            Session["Role"] = role;
+
+            try
+            {
+                string extra = "PreferredHomePage=" + role;
+                CookieManager.SetUserPreference(username, role, extra);
+            }
+            catch
+            {
+                // ignore cookie errors
+            }
+
+            if (role == "Staff")
+                Response.Redirect("~/Staff.aspx");
+            else
+                Response.Redirect("~/Member.aspx");
         }
+
     }
 }

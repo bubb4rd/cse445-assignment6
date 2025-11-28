@@ -14,7 +14,27 @@ namespace Assignment6
         {
             if (!IsPostBack)
             {
-                GenerateCaptcha();
+                if (User.Identity.IsAuthenticated)
+                {
+                    string role = Session["Role"] as string;
+
+                    if (String.Equals(role, "Staff", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Response.Redirect("~/Staff.aspx");
+                        return;
+                    }
+                    else if (String.Equals(role, "Member", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Response.Redirect("~/Member.aspx");
+                        return;
+                    }
+
+                    // Fallback if Session lost but auth cookie exists:
+                    // send them to a default page
+                    Response.Redirect("~/Default.aspx");
+                    return;
+                }
+                else GenerateCaptcha();
             }
         }
 

@@ -1,166 +1,169 @@
 ﻿using System;
 using System.Web.UI;
-
-public partial class _Default : Page
+namespace Assignment6
 {
-    protected void Page_Load(object sender, EventArgs e)
+    public partial class _Default : Page
     {
-        if (!IsPostBack)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            try
+            if (!IsPostBack)
             {
-                CookieManager.TrackVisit("Default.aspx");
+                try
+                {
+                    CookieManager.TrackVisit("Default.aspx");
+                }
+                catch { }
             }
-            catch { }
-        }
-    }
-
-    protected void btnShowAppState_Click(object sender, EventArgs e)
-    {
-        if (Application["TotalVisitors"] == null)
-        {
-            lblAppState.Text = "<strong style='color:red;'>ERROR: Global.asax has not initialized Application state.</strong>";
-            return;
         }
 
-        int totalVisitors = (int)Application["TotalVisitors"];
-        int currentUsers = (int)Application["CurrentUsers"];
-        DateTime startTime = (DateTime)Application["ApplicationStartTime"];
-
-        string output = "<strong>Application State (Global.asax):</strong><br/>" +
-                       "Application Start Time: " + startTime.ToString() + "<br/>" +
-                       "Total Visitors: " + totalVisitors.ToString() + "<br/>" +
-                       "Current Active Users: " + currentUsers.ToString() + "<br/>" +
-                       "Uptime: " + (DateTime.Now - startTime).ToString();
-
-        lblAppState.Text = output;
-    }
-
-    protected void btnSetCookie_Click(object sender, EventArgs e)
-    {
-        string username = txtUsername.Text.Trim();
-        string preference = txtPreference.Text.Trim();
-
-        if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(preference))
+        protected void btnShowAppState_Click(object sender, EventArgs e)
         {
-            CookieManager.SetUserPreference(username, preference);
-            lblCookieOutput.Text = "Cookie created!<br/>Username: " + username +
-                                  "<br/>Preference: " + preference;
-            lblCookieOutput.ForeColor = System.Drawing.Color.Green;
+            if (Application["TotalVisitors"] == null)
+            {
+                lblAppState.Text = "<strong style='color:red;'>ERROR: Global.asax has not initialized Application state.</strong>";
+                return;
+            }
+
+            int totalVisitors = (int)Application["TotalVisitors"];
+            int currentUsers = (int)Application["CurrentUsers"];
+            DateTime startTime = (DateTime)Application["ApplicationStartTime"];
+
+            string output = "<strong>Application State (Global.asax):</strong><br/>" +
+                           "Application Start Time: " + startTime.ToString() + "<br/>" +
+                           "Total Visitors: " + totalVisitors.ToString() + "<br/>" +
+                           "Current Active Users: " + currentUsers.ToString() + "<br/>" +
+                           "Uptime: " + (DateTime.Now - startTime).ToString();
+
+            lblAppState.Text = output;
         }
-        else
+
+        protected void btnSetCookie_Click(object sender, EventArgs e)
         {
-            lblCookieOutput.Text = "Please enter both username and preference.";
+            string username = txtUsername.Text.Trim();
+            string preference = txtPreference.Text.Trim();
+
+            if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(preference))
+            {
+                CookieManager.SetUserPreference(username, preference);
+                lblCookieOutput.Text = "Cookie created!<br/>Username: " + username +
+                                      "<br/>Preference: " + preference;
+                lblCookieOutput.ForeColor = System.Drawing.Color.Green;
+            }
+            else
+            {
+                lblCookieOutput.Text = "Please enter both username and preference.";
+                lblCookieOutput.ForeColor = System.Drawing.Color.Red;
+            }
+        }
+
+        protected void btnReadCookie_Click(object sender, EventArgs e)
+        {
+            string username = CookieManager.GetUserPreference("Username");
+            string preference = CookieManager.GetUserPreference("Preference");
+            string lastVisit = CookieManager.GetUserPreference("LastVisit");
+            int visitCount = CookieManager.GetVisitCount();
+
+            if (username != null)
+            {
+                lblCookieOutput.Text = "<strong>Cookie Data:</strong><br/>" +
+                                      "Username: " + username + "<br/>" +
+                                      "Preference: " + preference + "<br/>" +
+                                      "Last Visit: " + lastVisit + "<br/>" +
+                                      "Visit Count: " + visitCount.ToString();
+                lblCookieOutput.ForeColor = System.Drawing.Color.Green;
+            }
+            else
+            {
+                lblCookieOutput.Text = "No cookie found. Please create one first.";
+                lblCookieOutput.ForeColor = System.Drawing.Color.Orange;
+            }
+        }
+
+        protected void btnDeleteCookie_Click(object sender, EventArgs e)
+        {
+            CookieManager.DeleteCookie("UserPreference");
+            CookieManager.DeleteCookie("VisitTracker");
+            lblCookieOutput.Text = "Cookies deleted successfully!";
             lblCookieOutput.ForeColor = System.Drawing.Color.Red;
         }
-    }
 
-    protected void btnReadCookie_Click(object sender, EventArgs e)
-    {
-        string username = CookieManager.GetUserPreference("Username");
-        string preference = CookieManager.GetUserPreference("Preference");
-        string lastVisit = CookieManager.GetUserPreference("LastVisit");
-        int visitCount = CookieManager.GetVisitCount();
-
-        if (username != null)
+        protected void btnSessionDemo_Click(object sender, EventArgs e)
         {
-            lblCookieOutput.Text = "<strong>Cookie Data:</strong><br/>" +
-                                  "Username: " + username + "<br/>" +
-                                  "Preference: " + preference + "<br/>" +
-                                  "Last Visit: " + lastVisit + "<br/>" +
-                                  "Visit Count: " + visitCount.ToString();
-            lblCookieOutput.ForeColor = System.Drawing.Color.Green;
+            if (Session["SessionStartTime"] != null)
+            {
+                DateTime sessionStart = (DateTime)Session["SessionStartTime"];
+                TimeSpan sessionDuration = DateTime.Now - sessionStart;
+
+                lblSessionOutput.Text = "<strong>Session Information:</strong><br/>" +
+                                       "Session ID: " + Session.SessionID + "<br/>" +
+                                       "Started: " + sessionStart.ToString() + "<br/>" +
+                                       "Duration: " + sessionDuration.Minutes.ToString() + " min " +
+                                       sessionDuration.Seconds.ToString() + " sec<br/>" +
+                                       "Timeout: " + Session.Timeout.ToString() + " minutes";
+            }
+            else
+            {
+                lblSessionOutput.Text = "Session not available.";
+            }
         }
-        else
+
+        // WEB SERVICE TESTING METHODS
+        protected void btnTestServerTime_Click(object sender, EventArgs e)
         {
-            lblCookieOutput.Text = "No cookie found. Please create one first.";
-            lblCookieOutput.ForeColor = System.Drawing.Color.Orange;
+            // Call the web method directly (service is in same project)
+            string time = GetServerTimeLocal();
+            lblServerTime.Text = "<strong>Server Time:</strong> " + time;
+            lblServerTime.ForeColor = System.Drawing.Color.Blue;
         }
-    }
 
-    protected void btnDeleteCookie_Click(object sender, EventArgs e)
-    {
-        CookieManager.DeleteCookie("UserPreference");
-        CookieManager.DeleteCookie("VisitTracker");
-        lblCookieOutput.Text = "Cookies deleted successfully!";
-        lblCookieOutput.ForeColor = System.Drawing.Color.Red;
-    }
-
-    protected void btnSessionDemo_Click(object sender, EventArgs e)
-    {
-        if (Session["SessionStartTime"] != null)
+        protected void btnTestUsername_Click(object sender, EventArgs e)
         {
-            DateTime sessionStart = (DateTime)Session["SessionStartTime"];
-            TimeSpan sessionDuration = DateTime.Now - sessionStart;
+            string username = txtTestUsername.Text.Trim();
+            bool isValid = ValidateUsernameLocal(username);
 
-            lblSessionOutput.Text = "<strong>Session Information:</strong><br/>" +
-                                   "Session ID: " + Session.SessionID + "<br/>" +
-                                   "Started: " + sessionStart.ToString() + "<br/>" +
-                                   "Duration: " + sessionDuration.Minutes.ToString() + " min " +
-                                   sessionDuration.Seconds.ToString() + " sec<br/>" +
-                                   "Timeout: " + Session.Timeout.ToString() + " minutes";
+            lblUsernameResult.Text = "<strong>Validation Result:</strong> " +
+                                    (isValid ? "Valid username (3+ characters)" : "Invalid - must be 3+ characters");
+            lblUsernameResult.ForeColor = isValid ? System.Drawing.Color.Green : System.Drawing.Color.Red;
         }
-        else
+
+        protected void btnTestBMI_Click(object sender, EventArgs e)
         {
-            lblSessionOutput.Text = "Session not available.";
+            double height, weight;
+
+            if (double.TryParse(txtHeight.Text, out height) && double.TryParse(txtWeight.Text, out weight))
+            {
+                double bmi = CalculateBMILocal(height, weight);
+                lblBMIResult.Text = "<strong>BMI Result:</strong> " + bmi.ToString("F2");
+                lblBMIResult.ForeColor = System.Drawing.Color.Blue;
+            }
+            else
+            {
+                lblBMIResult.Text = "Please enter valid numbers for height and weight.";
+                lblBMIResult.ForeColor = System.Drawing.Color.Red;
+            }
         }
-    }
 
-    // WEB SERVICE TESTING METHODS
-    protected void btnTestServerTime_Click(object sender, EventArgs e)
-    {
-        // Call the web method directly (service is in same project)
-        string time = GetServerTimeLocal();
-        lblServerTime.Text = "<strong>Server Time:</strong> " + time;
-        lblServerTime.ForeColor = System.Drawing.Color.Blue;
-    }
-
-    protected void btnTestUsername_Click(object sender, EventArgs e)
-    {
-        string username = txtTestUsername.Text.Trim();
-        bool isValid = ValidateUsernameLocal(username);
-
-        lblUsernameResult.Text = "<strong>Validation Result:</strong> " +
-                                (isValid ? "Valid username (3+ characters)" : "Invalid - must be 3+ characters");
-        lblUsernameResult.ForeColor = isValid ? System.Drawing.Color.Green : System.Drawing.Color.Red;
-    }
-
-    protected void btnTestBMI_Click(object sender, EventArgs e)
-    {
-        double height, weight;
-
-        if (double.TryParse(txtHeight.Text, out height) && double.TryParse(txtWeight.Text, out weight))
+        // Helper methods that replicate service logic
+        private string GetServerTimeLocal()
         {
-            double bmi = CalculateBMILocal(height, weight);
-            lblBMIResult.Text = "<strong>BMI Result:</strong> " + bmi.ToString("F2");
-            lblBMIResult.ForeColor = System.Drawing.Color.Blue;
+            return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         }
-        else
+
+        private bool ValidateUsernameLocal(string username)
         {
-            lblBMIResult.Text = "Please enter valid numbers for height and weight.";
-            lblBMIResult.ForeColor = System.Drawing.Color.Red;
+            if (string.IsNullOrEmpty(username))
+                return false;
+            return username.Length >= 3;
         }
-    }
 
-    // Helper methods that replicate service logic
-    private string GetServerTimeLocal()
-    {
-        return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-    }
+        private double CalculateBMILocal(double heightInches, double weightLbs)
+        {
+            if (heightInches <= 0 || weightLbs <= 0)
+                return 0;
 
-    private bool ValidateUsernameLocal(string username)
-    {
-        if (string.IsNullOrEmpty(username))
-            return false;
-        return username.Length >= 3;
-    }
+            return (weightLbs * 703) / (heightInches * heightInches);
+        }
 
-    private double CalculateBMILocal(double heightInches, double weightLbs)
-    {
-        if (heightInches <= 0 || weightLbs <= 0)
-            return 0;
-
-        return (weightLbs * 703) / (heightInches * heightInches);
     }
 
 }

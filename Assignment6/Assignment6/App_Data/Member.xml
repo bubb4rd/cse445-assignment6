@@ -1,4 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Users>
 	<!-- New members will be appended here by Register.aspx -->
+	<User>
+		<Username>bode</Username>
+		<Password>123</Password>
+		<Role>Member</Role>
+		<Email>bo@asu.edu</Email>
+	</User>
 </Users>

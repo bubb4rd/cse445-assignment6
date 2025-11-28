@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Assignment6
 {
-    public class Member : System.Web.UI.Page
+    public partial class Member : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -27,6 +27,17 @@ namespace Assignment6
                 string username = Session["Username"] as string ?? User.Identity.Name;
                 lblWelcomeMember.Text = "Welcome, " + username + " (Member)";
 
+                // Read cookie values
+                string cookieUser = CookieManager.GetUserPreference("Username");
+                string cookieRole = CookieManager.GetUserPreference("Role");
+                string lastLogin  = CookieManager.GetUserPreference("LastLogin");
+                string settings   = CookieManager.GetUserPreference("Settings");
+
+                lblMemberCookieInfo.Text =
+                    "Cookie Username: " + (cookieUser ?? "(none)") + "<br/>" +
+                    "Cookie Role: " + (cookieRole ?? "(none)") + "<br/>" +
+                    "Last Login: " + (lastLogin ?? "(unknown)") + "<br/>" +
+                    "Settings: " + (settings ?? "(none)");
                 if (Application["TotalVisitors"] != null &&
                     Application["CurrentUsers"] != null &&
                     Application["ApplicationStartTime"] != null)
