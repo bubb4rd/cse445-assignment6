@@ -9,6 +9,8 @@
   - [ ] Register.aspx.cs core logic (connect hash service)
   - [ ] Add member to Member.xml
 - [ ] Login
+  - [x] Login.aspx UI
+  - [ ] Login.aspx.cs core logic
 - [ ] Member
 - [ ] Staff
 - [ ] Logout
