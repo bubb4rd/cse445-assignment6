@@ -13,10 +13,71 @@
         h1 { color: #333; }
         h2 { color: #4CAF50; }
         h3 { color: #555; }
+        .navbar {
+            padding: 10px 20px;
+            color: #000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar a { text-decoration: none; margin-left: 10px; }
+        .nav-left a { font-weight: bold; }
+        .role-label { text-transform: uppercase; color: #00000050; font-weight: 500; font-size: 12px;}
+        .return { cursor: pointer; 
+                      outline: 0; 
+                      color: #000; 
+                      border: none; 
+                      background-color: transparent; }
+        .cta { 
+                    cursor: pointer;
+                    outline: 0;
+                    color: #fff;
+                    background-color: #0d6efd;
+                    border-color: #0d6efd;
+                    display: inline-block;
+                    font-weight: 400;
+                    line-height: 1.5;
+                    text-align: center;
+                    border: 1px solid transparent;
+                    padding: 6px 12px;
+                    font-size: 16px;
+                    border-radius: .25rem;
+                    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+                    :hover {
+                        color: #fff;
+                        background-color: #0b5ed7;
+                        border-color: #0a58ca;
+                    }
+                }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
+        <div class="navbar">
+            <div class="nav-left">
+                <asp:HyperLink ID="lnkHome" runat="server" NavigateUrl="~/Default.aspx" Text="Home" />
+            </div>
+            <div class="nav-right">
+                <!-- Anonymous user links -->
+                <asp:Panel ID="pnlAnonNav" runat="server">
+                    <asp:HyperLink ID="lnkLogin" runat="server" NavigateUrl="~/Login.aspx" Text="Login" class="cta"/>
+                    &nbsp;
+                    <asp:HyperLink ID="lnkRegister" runat="server" NavigateUrl="~/Register.aspx" Text="Register" />
+                </asp:Panel>
+
+                <!-- Logged-in user links -->
+                <asp:Panel ID="pnlAuthNav" runat="server" Visible="false">
+                    <asp:Label ID="lblNavUser" runat="server" />
+                    <asp:Label ID="lblUserRole" runat="server" class="role-label"/>
+                    &nbsp;|&nbsp;
+                    <asp:HyperLink ID="lnkProfile" runat="server" Text="Profile" />
+                    &nbsp;|&nbsp;
+                    <asp:HyperLink ID="lnkLogout" runat="server" NavigateUrl="~/Logout.aspx" Text="Logout" />
+                </asp:Panel>
+            </div>
+        </div>
+
+        <hr />
         <div>
             <h1>CSE 445 Assignment 6</h1>
             <h2>Team Members: Bo Hubbard, Wyatt Belscher, Jon Kruja</h2>

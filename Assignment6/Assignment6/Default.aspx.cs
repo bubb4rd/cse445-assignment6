@@ -5,14 +5,43 @@ namespace Assignment6
     public partial class _Default : Page
     {
         protected void Page_Load(object sender, EventArgs e)
+
         {
             if (!IsPostBack)
             {
+                SetupNavbar();
                 try
                 {
                     CookieManager.TrackVisit("Default.aspx");
                 }
                 catch { }
+            }
+        }
+
+        private void SetupNavbar()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                // Authenticated: show profile + logout
+                pnlAnonNav.Visible = false;
+                pnlAuthNav.Visible = true;
+
+                string username = Session["Username"] as string ?? User.Identity.Name;
+                string role = Session["Role"] as string ?? "";
+
+                lblNavUser.Text = "Hello, " + username;
+                lblUserRole.Text = role;
+                // Set Profile link based on role
+                if (role.Equals("Staff", StringComparison.OrdinalIgnoreCase))
+                    lnkProfile.NavigateUrl = "~/Staff.aspx";
+                else
+                    lnkProfile.NavigateUrl = "~/Member.aspx";  // default for Member/unknown
+            }
+            else
+            {
+                // Anonymous: show login/register, hide profile/logout
+                pnlAnonNav.Visible = true;
+                pnlAuthNav.Visible = false;
             }
         }
 
