@@ -80,6 +80,7 @@
             
             <div class="row justify-around">
                 <div class="col">
+                <div class="col">
                     <label for="txtUsername">Username</label>
                     <asp:TextBox ID="txtUsername" runat="server"></asp:TextBox>
                 </div>
@@ -88,10 +89,17 @@
                     <asp:TextBox ID="txtPassword" runat="server"></asp:TextBox>
                 </div>
             </div>
-
+            <div class="" style="width: min-content;">
+                <asp:RadioButton id="memberRadio" Text="Member" Checked="True" GroupName="RadioGroup1" runat="server" ></asp:RadioButton>
+                <asp:RadioButton id="staffRadio" Text="Staff" Checked="False" GroupName="RadioGroup1" runat="server"></asp:RadioButton>
+            </div>
+            </div>
             <div class="buttons">
                 <asp:Button CssClass="btn cta" ID="btnLogin" runat="server" Text="Log in" OnClick="btnLogin_Click" />
                 <asp:Button CssClass="btn return" ID="btnRegister" runat="server" Text="Register" PostBackUrl="~/Register.aspx" />
+            </div>
+            <div class="row justify-around" style="margin-top:15px;">
+                <asp:Label ID="lblMessage" runat="server" ForeColor="Red"></asp:Label>
             </div>
         </div>
     </form>
