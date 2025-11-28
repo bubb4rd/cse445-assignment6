@@ -1,5 +1,19 @@
 # Assignment 6 — Member & Staff Login System
 
+## TODO
+- [ ] Default
+  - [ ] Add Wyatt's component component summary + tryit 
+  - [ ] Add Jon's component component summary + tryit 
+- [ ] Register
+  - [x] Register.aspx UI
+  - [ ] Register.aspx.cs core logic (connect hash service)
+  - [ ] Add member to Member.xml
+- [ ] Login
+- [ ] Member
+- [ ] Staff
+- [ ] Logout
+- [ ] Error
+
 ## Overview
 This assignment implements an authentication and access-control system for a web app with two user types:
 - Members (registered users stored in `Member.xml`)
