@@ -30,7 +30,7 @@ namespace Assignment6
                 string username = Session["Username"] as string ?? User.Identity.Name;
                 lblWelcomeMember.Text = "Welcome, " + username;
 
-                string xmlPath = Server.MapPath("~/App_Data/Member.xml");
+                string xmlPath = Server.MapPath("~/App_Data/Staff.xml");
                 XDocument doc = XDocument.Load(xmlPath);
 
                 var userElement = doc.Root
