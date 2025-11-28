@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -27,8 +28,28 @@ namespace Assignment6
             if (!IsPostBack)
             {
                 string username = Session["Username"] as string ?? User.Identity.Name;
-                lblWelcomeStaff.Text = "Welcome, " + username + " (Staff)";
+                lblWelcomeMember.Text = "Welcome, " + username;
 
+                string xmlPath = Server.MapPath("~/App_Data/Member.xml");
+                XDocument doc = XDocument.Load(xmlPath);
+
+                var userElement = doc.Root
+                    .Elements("User")
+                    .FirstOrDefault(u => (string)u.Element("Username") == username);
+
+                string email = userElement != null
+                    ? (string)userElement.Element("Email")
+                    : null;
+
+                // Read cookie values
+                string cookieUser = CookieManager.GetUserPreference("Username");
+                string cookieRole = CookieManager.GetUserPreference("Role");
+                string lastLogin  = CookieManager.GetUserPreference("LastLogin");
+                string settings   = CookieManager.GetUserPreference("Settings");
+
+                lblUsername.Text = username;
+                lblRole.Text = role;
+                lblEmail.Text = email;
                 if (Application["TotalVisitors"] != null &&
                     Application["CurrentUsers"] != null &&
                     Application["ApplicationStartTime"] != null)

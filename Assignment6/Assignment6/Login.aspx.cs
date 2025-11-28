@@ -102,7 +102,7 @@ namespace Assignment6
         {
             lblMessage.Text = "";
 
-            string username = txtUsername.Text.Trim();
+            string username = txtUsername.Text.Trim().ToLower();
             string password = txtPassword.Text.Trim();
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
