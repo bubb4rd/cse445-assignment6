@@ -11,8 +11,8 @@
 - [ ] Login
   - [x] Login.aspx UI
   - [ ] Login.aspx.cs core logic
-- [ ] Member
-  - [ ] Add member service (BMI/server time)
+- [x] Member
+  - [x] Add member service (BMI/server time)
 - [ ] Staff
   - [ ] Display members
 - [x] Logout
