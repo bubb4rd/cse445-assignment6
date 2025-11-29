@@ -63,5 +63,61 @@ namespace Assignment6
                 // }
             }
         }
+        // WEB SERVICE TESTING METHODS
+        protected void btnTestServerTime_Click(object sender, EventArgs e)
+        {
+            // Call the web method directly (service is in same project)
+            string time = GetServerTimeLocal();
+            lblServerTime.Text = "<strong>Server Time:</strong> " + time;
+            lblServerTime.ForeColor = System.Drawing.Color.Blue;
+        }
+
+        protected void btnTestUsername_Click(object sender, EventArgs e)
+        {
+            string username = txtTestUsername.Text.Trim();
+            bool isValid = ValidateUsernameLocal(username);
+
+            lblUsernameResult.Text = "<strong>Validation Result:</strong> " +
+                                    (isValid ? "Valid username (3+ characters)" : "Invalid - must be 3+ characters");
+            lblUsernameResult.ForeColor = isValid ? System.Drawing.Color.Green : System.Drawing.Color.Red;
+        }
+
+        protected void btnTestBMI_Click(object sender, EventArgs e)
+        {
+            double height, weight;
+
+            if (double.TryParse(txtHeight.Text, out height) && double.TryParse(txtWeight.Text, out weight))
+            {
+                double bmi = CalculateBMILocal(height, weight);
+                lblBMIResult.Text = "<strong>BMI Result:</strong> " + bmi.ToString("F2");
+                lblBMIResult.ForeColor = System.Drawing.Color.Blue;
+            }
+            else
+            {
+                lblBMIResult.Text = "Please enter valid numbers for height and weight.";
+                lblBMIResult.ForeColor = System.Drawing.Color.Red;
+            }
+        }
+
+        // Helper methods that replicate service logic
+        private string GetServerTimeLocal()
+        {
+            return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        }
+
+        private bool ValidateUsernameLocal(string username)
+        {
+            if (string.IsNullOrEmpty(username))
+                return false;
+            return username.Length >= 3;
+        }
+
+        private double CalculateBMILocal(double heightInches, double weightLbs)
+        {
+            if (heightInches <= 0 || weightLbs <= 0)
+                return 0;
+
+            return (weightLbs * 703) / (heightInches * heightInches);
+        }
     }   
 }
