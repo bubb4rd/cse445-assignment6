@@ -16,7 +16,7 @@
 - [x] Staff
   - [x] Display members
 - [x] Logout
-- [ ] Error
+- [x] Error
 
 ## Overview
 This assignment implements an authentication and access-control system for a web app with two user types:
