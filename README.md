@@ -13,8 +13,8 @@
   - [ ] Login.aspx.cs core logic
 - [x] Member
   - [x] Add member service (BMI/server time)
-- [ ] Staff
-  - [ ] Display members
+- [x] Staff
+  - [x] Display members
 - [x] Logout
 - [ ] Error
 
