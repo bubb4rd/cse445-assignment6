@@ -124,7 +124,7 @@
             </div>
 
             <div class="row" style="margin-top:15px;">
-                <asp:Label ID="lblMessage" runat="server" ForeColor="Red"></asp:Label>
+                <asp:Label style="text-align: center;" ID="lblMessage" runat="server" ForeColor="Red"></asp:Label>
             </div>
         </div>
     </form>
