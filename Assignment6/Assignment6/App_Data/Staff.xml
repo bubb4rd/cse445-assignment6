@@ -6,4 +6,10 @@
 		<Role>Staff</Role>
 		<Email>ta@example.com</Email>
 	</User>
+	<User>
+		<Username>admin</Username>
+		<Password>12345</Password>
+		<Role>Staff</Role>
+		<Email>admin@example.com</Email>
+	</User>
 </Users>
