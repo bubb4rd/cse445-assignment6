@@ -45,34 +45,68 @@ namespace Assignment6
                 lblRole.Text = role;
                 lblEmail.Text = email;
 
-                LoadMemberList();
+                LoadAllUsers();
                 ShowAppState();
                 ShowCookieInfo();
             }
         }
 
-        private void LoadMemberList()
+        private void LoadAllUsers()
         {
+            var allUsers = new List<dynamic>();
+
             try
             {
-                string xmlPath = Server.MapPath("~/App_Data/Member.xml");
-                XDocument doc = XDocument.Load(xmlPath);
+                // Members
+                string memberPath = Server.MapPath("~/App_Data/Member.xml");
+                if (System.IO.File.Exists(memberPath))
+                {
+                    XDocument memberDoc = XDocument.Load(memberPath);
 
-                var members = doc.Root.Elements("User")
-                    .Select(u => new
-                    {
-                        Username = (string)u.Element("Username"),
-                        Email = (string)u.Element("Email"),
-                        Role = (string)u.Element("Role"),
-                    })
+                    var members = memberDoc.Root.Elements("User")
+                        .Select(u => new
+                        {
+                            Username = (string)u.Element("Username"),
+                            Email = (string)u.Element("Email"),
+                            Role = (string)u.Element("Role") ?? "Member",
+                            Source = "Member.xml",
+                            DateCreated = (string)u.Element("DateCreated")
+                        });
+
+                    allUsers.AddRange(members);
+                }
+
+                // Staff
+                string staffPath = Server.MapPath("~/App_Data/Staff.xml");
+                if (System.IO.File.Exists(staffPath))
+                {
+                    XDocument staffDoc = XDocument.Load(staffPath);
+
+                    var staffUsers = staffDoc.Root.Elements("User")
+                        .Select(u => new
+                        {
+                            Username = (string)u.Element("Username"),
+                            Email = (string)u.Element("Email"),
+                            Role = (string)u.Element("Role") ?? "Staff",
+                            Source = "Staff.xml",
+                            DateCreated = (string)u.Element("DateCreated")
+                        });
+
+                    allUsers.AddRange(staffUsers);
+                }
+
+                // Optional: sort by role then username
+                var ordered = allUsers
+                    .OrderBy(u => u.Role)
+                    .ThenBy(u => u.Username)
                     .ToList();
 
-                gvMembers.DataSource = members;
-                gvMembers.DataBind();
+                gvUsers.DataSource = ordered;
+                gvUsers.DataBind();
             }
             catch (Exception ex)
             {
-                lblStaffAppState.Text = "Error loading members: " + ex.Message;
+                lblStaffAppState.Text = "Error loading users: " + ex.Message;
             }
         }
 
