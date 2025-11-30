@@ -41,30 +41,74 @@ namespace Assignment6
                     ? (string)userElement.Element("Email")
                     : null;
 
-                // Read cookie values
-                string cookieUser = CookieManager.GetUserPreference("Username");
-                string cookieRole = CookieManager.GetUserPreference("Role");
-                string lastLogin  = CookieManager.GetUserPreference("LastLogin");
-                string settings   = CookieManager.GetUserPreference("Settings");
-
                 lblUsername.Text = username;
                 lblRole.Text = role;
                 lblEmail.Text = email;
-                if (Application["TotalVisitors"] != null &&
-                    Application["CurrentUsers"] != null &&
-                    Application["ApplicationStartTime"] != null)
-                {
-                    int totalVisitors = (int)Application["TotalVisitors"];
-                    int currentUsers = (int)Application["CurrentUsers"];
-                    DateTime startTime = (DateTime)Application["ApplicationStartTime"];
 
-                    lblStaffAppState.Text =
-                        "Total Visitors: " + totalVisitors +
-                        "<br/>Current Users: " + currentUsers +
-                        "<br/>Application Start: " + startTime;
-                }
+                LoadMemberList();
+                ShowAppState();
+                ShowCookieInfo();
             }
         }
 
+        private void LoadMemberList()
+        {
+            try
+            {
+                string xmlPath = Server.MapPath("~/App_Data/Member.xml");
+                XDocument doc = XDocument.Load(xmlPath);
+
+                var members = doc.Root.Elements("User")
+                    .Select(u => new
+                    {
+                        Username = (string)u.Element("Username"),
+                        Email = (string)u.Element("Email"),
+                        Role = (string)u.Element("Role"),
+                    })
+                    .ToList();
+
+                gvMembers.DataSource = members;
+                gvMembers.DataBind();
+            }
+            catch (Exception ex)
+            {
+                lblStaffAppState.Text = "Error loading members: " + ex.Message;
+            }
+        }
+
+        private void ShowAppState()
+        {
+            if (Application["TotalVisitors"] != null &&
+                Application["CurrentUsers"] != null &&
+                Application["ApplicationStartTime"] != null)
+            {
+                int total = (int)Application["TotalVisitors"];
+                int current = (int)Application["CurrentUsers"];
+                DateTime start = (DateTime)Application["ApplicationStartTime"];
+
+                lblStaffAppState.Text =
+                    "Total Visitors: " + total +
+                    "<br/>Current Users: " + current +
+                    "<br/>Application Start: " + start;
+            }
+            else
+            {
+                lblStaffAppState.Text = "Application state not initialized.";
+            }
+        }
+
+        private void ShowCookieInfo()
+        {
+            string cookieUser = CookieManager.GetUserPreference("Username");
+            string cookieRole = CookieManager.GetUserPreference("Role");
+            string lastLogin  = CookieManager.GetUserPreference("LastLogin");
+            string settings   = CookieManager.GetUserPreference("Settings");
+
+            lblStaffCookieInfo.Text =
+                "Cookie Username: " + (cookieUser ?? "(none)") + "<br/>" +
+                "Cookie Role: " + (cookieRole ?? "(none)") + "<br/>" +
+                "Last Login: " + (lastLogin ?? "(unknown)") + "<br/>" +
+                "Settings: " + (settings ?? "(none)");
+        }
     }
 }

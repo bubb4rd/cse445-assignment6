@@ -75,15 +75,15 @@
                         border-color: #0a58ca;
                     }
                 }
-                .navbar {
+            .navbar {
                     padding: 10px 20px;
                     color: #000;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                }
-                .navbar a { text-decoration: none; margin-left: 10px; }
-                .nav-left a { font-weight: bold; }
+            }
+            .navbar a { text-decoration: none; margin-left: 10px; }
+            .nav-left a { font-weight: bold; }
     </style>
     <title>Profile</title>
 </head>

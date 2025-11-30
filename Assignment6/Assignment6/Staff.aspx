@@ -51,11 +51,25 @@
                         background-color: #0b5ed7;
                         border-color: #0a58ca;
                     }
-                }
+            }
+            .navbar {
+                    padding: 10px 20px;
+                    color: #000;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+            }
+            .navbar a { text-decoration: none; margin-left: 10px; }
+            .nav-left a { font-weight: bold; }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
+        <div class="navbar">
+            <div class="nav-left">
+                <asp:HyperLink ID="lnkHome" runat="server" NavigateUrl="~/Default.aspx" Text="Home" />
+            </div>
+        </div>
         <div>
         <asp:Label ID="lblWelcomeMember" runat="server" class="welcome-header"/>
             <div class="container">
@@ -76,8 +90,20 @@
                 <asp:Button ID="btnLogOut" runat="server" Text="Log out" CssClass="btn cta" PostBackUrl="~/Logout.aspx"/>
             </div>
         </div>
-            <h3>Application State</h3>
-            <asp:Label ID="lblStaffAppState" runat="server" />
+
+        <h3>Registered Members</h3>
+        <asp:GridView ID="gvMembers" runat="server" AutoGenerateColumns="False">
+            <Columns>
+                <asp:BoundField DataField="Username" HeaderText="Username" />
+                <asp:BoundField DataField="Email" HeaderText="Email" />
+                <asp:BoundField DataField="Role" HeaderText="Role" />
+            </Columns>
+        </asp:GridView>
+        <h3>Application State</h3>
+        <asp:Label ID="lblStaffAppState" runat="server" />
+
+        <h3>Cookie Info</h3>
+        <asp:Label ID="lblStaffCookieInfo" runat="server" />
 
         </div>
     </form>
