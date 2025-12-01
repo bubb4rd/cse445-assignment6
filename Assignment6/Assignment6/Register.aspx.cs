@@ -124,7 +124,7 @@ namespace Assignment6
                 // TODO; implement password hashing
                 // 5. Hash password (stub or real DLL)
                 // string hashedPassword = SecurityHelper.HashPassword(password); // or a placeholder for now
-                string hashedPassword = password; // Placeholder: store plain text (NOT recommended in real apps)
+                string hashedPassword = HashCalculator.ComputeHash(password); // Placeholder: store plain text (NOT recommended in real apps)
                 // 6. Append new member user
                 XElement newUser = new XElement("User",
                     new XElement("Username", username),
