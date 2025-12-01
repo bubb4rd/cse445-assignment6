@@ -127,17 +127,17 @@
                         <td>Wyatt Belscher</td>
                         <td>Hashing Function (DLL/Class)</td>
                         <td>Takes a string and computes the hashed value</td>
-                        <td>ComputeHash(string str)</td>
+                        <td>ComputeHash()</td>
                         <td>Input: str (string), Output: hashed str (string)</td>
                         <td>See "Hash Testing" below</td>
                     </tr>
                     <tr>
                         <td>Wyatt Belscher</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>Web Service (Remote)</td>
+                        <td>Word Filter Service to filter stop words and other meaningless words</td>
+                        <td>WordFilter()</td>
+                        <td>Input: str (string), Output: Filtered str (string)</td>
+                        <td><asp:HyperLink ID="lnkService2" runat="server" NavigateUrl="http://webstrar45.fulton.asu.edu/Page2/Service1.svc?wsdl" Text="Service Link" Target="_blank" /></td>
                     </tr>
                     <tr>
                         <td>Wyatt Belscher</td>
