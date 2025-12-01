@@ -125,11 +125,11 @@
                     </tr>
                     <tr>
                         <td>Wyatt Belscher</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>Hashing Function (DLL/Class)</td>
+                        <td>Takes a string and computes the hashed value</td>
+                        <td>ComputeHash(string str)</td>
+                        <td>Input: str (string), Output: hashed str (string)</td>
+                        <td>See "Hash Testing" below</td>
                     </tr>
                     <tr>
                         <td>Wyatt Belscher</td>
@@ -260,6 +260,17 @@
                             OnClick="btnTestBMI_Click" />
                 <br />
                 <asp:Label ID="lblBMIResult" runat="server"></asp:Label>
+                <br /><br />
+
+                <h3>Test Word Filter Function</h3>
+                <asp:Label ID="Label6" runat="server" Text="Enter String: "></asp:Label>
+                <asp:TextBox ID="txtInputString" runat="server"></asp:TextBox>
+                <asp:Button ID="btnTestWordFilter" runat="server" Text="Filter" 
+                            OnClick="btnTestWordFilter_Click" />
+                <br />
+                <asp:Label ID="Label7" runat="server" Text="Result: "></asp:Label>
+                <asp:Label ID="lblWordFilterResult" runat="server"></asp:Label>
+                <br /><br />
             </div>
             
             <!-- DLL Service TryIt -->

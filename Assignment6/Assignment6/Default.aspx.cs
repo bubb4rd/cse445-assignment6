@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.UI;
 namespace Assignment6
 {
@@ -136,6 +139,22 @@ namespace Assignment6
             }
         }
 
+        protected void btnComputeHash_Click(object sender, EventArgs e)
+        {
+            String str = txtHashInput.Text;
+            if (!string.IsNullOrEmpty(str))
+            {
+                string hash = HashCalculator.ComputeHash(str);
+                lblHashOutput.Text = hash;
+                lblHashOutput.ForeColor = System.Drawing.Color.Blue;
+            }
+            else
+            {
+                lblHashOutput.Text = "Please enter a string to hash.";
+                lblHashOutput.ForeColor = System.Drawing.Color.Red;
+            }
+        }
+
         // WEB SERVICE TESTING METHODS
         protected void btnTestServerTime_Click(object sender, EventArgs e)
         {
@@ -172,6 +191,13 @@ namespace Assignment6
             }
         }
 
+        protected void btnTestWordFilter_Click(object sender, EventArgs e)
+        {
+            string inputText = txtInputString.Text;
+            string filteredText = WordFilter(inputText);
+            lblWordFilterResult.Text = filteredText;
+        }
+
         // Helper methods that replicate service logic
         private string GetServerTimeLocal()
         {
@@ -192,7 +218,40 @@ namespace Assignment6
 
             return (weightLbs * 703) / (heightInches * heightInches);
         }
+        private string WordFilter(string str)
+        {
+            //remove XML tags
+            str = Regex.Replace(str, "<.*?>", string.Empty);
+            //remove punctuation and spaces
+            str = Regex.Replace(str, "[^a-zA-Z0-9' ]+", " ").ToLower();
+            str = Regex.Replace(str, @"\s+", " ").Trim();
 
+            //add stop words to filter list
+            string[] stopWords = { "a", "an", "and", "in", "on", "that", "the", "this", "is", "are", "am", "but", "or", "with", "to", "was", "not", "at", "did", "where", "when", "why", "there", "so", "them", "go" };
+
+            //filter out stop words
+            List<string> words = str.Split(' ').ToList();
+            words = words.Where(word => !stopWords.Contains(word.ToLower())).ToList();
+
+            //only remove meaningless words if there are more than 30 words
+            if (words.Count > 30)
+            {
+                //count word occurrences
+                Dictionary<string, int> wordCounts = new Dictionary<string, int>();
+                wordCounts = words.GroupBy(w => w.ToLower())
+                                        .ToDictionary(g => g.Key, g => g.Count());
+
+                //remove meaningless words
+                int meaninglessThreshold = 1;
+                words = wordCounts.Where(kv => kv.Value > meaninglessThreshold)
+                                .Select(kv => kv.Key)
+                                .ToList();
+            }
+            //join words back into a string
+            str = string.Join(" ", words);
+
+            return str;
+        }
     }
 
 }
