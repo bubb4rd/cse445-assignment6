@@ -46,6 +46,8 @@ namespace Assignment6
 
             try
             {
+                string incomingHash = HashCalculator.ComputeHash(password);
+
                 if (selectedRole == "Staff")
                 {
                     string staffPath = Server.MapPath("~/App_Data/Staff.xml");
@@ -57,17 +59,12 @@ namespace Assignment6
 
                     if (user != null)
                     {
-                        // TODO: link hashing implementation
-                        // string storedHash = (string)user.Element("Password");
-                        // if (SecurityHelper.VerifyPassword(password, storedHash))
-                        // {
-                        //     role = "Staff";
-                        //     return true;
-                        // }
-
-                        // For now, accept any password for testing:
-                        role = "Staff";
-                        return true;
+                        string storedHash = (string)user.Element("Password");
+                        if (incomingHash == storedHash)
+                        {
+                            role = "Staff";
+                            return true;
+                        }
                     }
                 }
                 else if (selectedRole == "Member")
@@ -84,9 +81,12 @@ namespace Assignment6
                         // For debugging:
                         // lblMessage.Text = username + " found!";
 
-                        // TODO: hashing check later
-                        role = "Member";
-                        return true;
+                        string storedHash = (string)user.Element("Password");
+                        if (incomingHash == storedHash)
+                        {
+                            role = "Member";
+                            return true;
+                        }
                     }
                 }
             }
