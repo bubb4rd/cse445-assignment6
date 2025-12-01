@@ -274,7 +274,20 @@
             </div>
             
             <!-- DLL Service TryIt -->
-
+            <div class="section">
+                <h2>Hashing Function Testing</h2>
+                <p><strong>Description:</strong> This tests the ComputeHash method from the Hashing Function DLL.</p>
+                
+                <asp:Label ID="Label8" runat="server" Text="Input String: "></asp:Label>
+                <asp:TextBox ID="txtHashInput" runat="server"></asp:TextBox>
+                <br /><br />
+                
+                <asp:Button ID="btnComputeHash" runat="server" Text="Compute Hash" 
+                            OnClick="btnComputeHash_Click" />
+                <br /><br />
+                
+                <asp:Label ID="lblHashOutput" runat="server" ForeColor="Brown"></asp:Label>
+            </div>
             <!-- User Control Service TryIt -->
         </div>
     </form>
