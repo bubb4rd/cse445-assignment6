@@ -154,13 +154,13 @@ Make sure XML writes are done with proper locking or synchronization if your app
 ---
 
 ## Testing Checklist
-- [ ] Register a new member via `Register.aspx` and verify the record was added to `Member.xml`.
+- [x] Register a new member via `Register.aspx` and verify the record was added to `Member.xml`.
 - [ ] Confirm CAPTCHA blocks simple automated submissions.
-- [ ] Log in as the new member and access `Member.aspx` successfully.
-- [ ] Attempt to access `Staff.aspx` as a member — ensure redirection/denial.
-- [ ] Log in as a staff account (including TA) and access `Staff.aspx` successfully.
-- [ ] Attempt to access `Member.aspx` as staff if that’s restricted by your spec — ensure appropriate behavior.
-- [ ] Log out and verify session/cookie cleared and protected pages are no longer accessible.
+- [x] Log in as the new member and access `Member.aspx` successfully.
+- [x] Attempt to access `Staff.aspx` as a member — ensure redirection/denial.
+- [x] Log in as a staff account (including TA) and access `Staff.aspx` successfully.
+- [x] Attempt to access `Member.aspx` as staff if that’s restricted by your spec — ensure appropriate behavior.
+- [x] Log out and verify session/cookie cleared and protected pages are no longer accessible.
 
 ---
 
