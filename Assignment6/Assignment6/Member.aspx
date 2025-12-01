@@ -144,6 +144,14 @@
                     <asp:Button ID="btnTestBMI" runat="server" Text="Calculate BMI" OnClick="btnTestBMI_Click" class="cta-blue"/>
                     <asp:Label ID="lblBMIResult" runat="server" style="text-align: center;"></asp:Label>
                 </div>
+
+                <div class="flex-col" style="gap: 6px;">
+                    <h3 style="text-align: center;">Test WordFilter()</h3>
+                    <asp:Label ID="Label6" runat="server" Text="Input Text: "></asp:Label>
+                    <asp:TextBox ID="txtInputText" runat="server"></asp:TextBox>
+                    <asp:Button ID="btnTestWordFilter" runat="server" Text="Filter Text" OnClick="btnTestWordFilter_Click" class="cta-blue"/>
+                    <asp:Label ID="lblFilteredText" runat="server" style="text-align: center;"></asp:Label>
+                </div>
                 </div>
             </div>
         </div>

@@ -137,7 +137,7 @@
                         <td>Word Filter Service to filter stop words and other meaningless words</td>
                         <td>WordFilter()</td>
                         <td>Input: str (string), Output: Filtered str (string)</td>
-                        <td><asp:HyperLink ID="lnkService2" runat="server" NavigateUrl="http://webstrar45.fulton.asu.edu/Page2/Service1.svc?wsdl" Text="Service Link" Target="_blank" /></td>
+                        <td><asp:HyperLink ID="lnkService2" runat="server" NavigateUrl="http://webstrar45.fulton.asu.edu/Page2/Service1.svc" Text="Service Link" Target="_blank" /></td>
                     </tr>
                     <tr>
                         <td>Wyatt Belscher</td>
