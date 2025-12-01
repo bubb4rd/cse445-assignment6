@@ -3,16 +3,23 @@
   <!-- New members will be appended here by Register.aspx -->
   <User>
     <Username>bode</Username>
-    <Password>123</Password>
+    <Password>a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3</Password>
     <Role>Member</Role>
     <Email>bo@asu.edu</Email>
     <DateCreated>2025-11-28 12:00:00</DateCreated>
   </User>
   <User>
     <Username>test</Username>
-    <Password>test1</Password>
+    <Password>1b4f0e9851971998e732078544c96b36c3d01cedf7caa332359d6f1d83567014</Password>
     <Role>Member</Role>
     <Email>test@test.com</Email>
     <DateCreated>2025-11-30 15:28:08</DateCreated>
+  </User>
+  <User>
+    <Username>bubbard</Username>
+    <Password>9b84c6bf90f76eaba3fe4da26490a09787f6f6e341c5bd01aea0125f13b223b8</Password>
+    <Role>Member</Role>
+    <Email>bubbard@test.com</Email>
+    <DateCreated>2025-12-01 16:22:00</DateCreated>
   </User>
 </Users>
