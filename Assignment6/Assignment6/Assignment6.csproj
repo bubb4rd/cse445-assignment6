@@ -69,6 +69,13 @@
   <ItemGroup>
     <Content Include="App_Data\Member.xml" />
     <Content Include="App_Data\Staff.xml" />
+    <None Include="Connected Services\WordCountRef\WordCountService.disco" />
+    <None Include="Connected Services\WordCountRef\configuration91.svcinfo" />
+    <None Include="Connected Services\WordCountRef\configuration.svcinfo" />
+    <None Include="Connected Services\WordCountRef\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="Logout.aspx" />
@@ -78,6 +85,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Code\CookieManager.cs" />
+    <Compile Include="Connected Services\WordCountRef\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -116,6 +128,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Connected Services\WordCountRef\WordCountService.wsdl" />
+    <None Include="Connected Services\WordCountRef\WordCountService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WordCountRef\WordCountService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -126,6 +145,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\WordCountRef\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://tempuri.org/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" name="WordCountService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://webstrar45.fulton.asu.edu/Page0/WordCountService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://webstrar45.fulton.asu.edu/Page0/WordCountService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IWordCountService_CountWords_InputMessage">
+    <wsdl:part name="parameters" element="tns:CountWords" />
+  </wsdl:message>
+  <wsdl:message name="IWordCountService_CountWords_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CountWordsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IWordCountService">
+    <wsdl:operation name="CountWords">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWordCountService/CountWords" message="tns:IWordCountService_CountWords_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWordCountService/CountWordsResponse" message="tns:IWordCountService_CountWords_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IWordCountService" type="tns:IWordCountService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CountWords">
+      <soap:operation soapAction="http://tempuri.org/IWordCountService/CountWords" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WordCountService">
+    <wsdl:port name="BasicHttpBinding_IWordCountService" binding="tns:BasicHttpBinding_IWordCountService">
+      <soap:address location="http://webstrar45.fulton.asu.edu/Page0/WordCountService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="be5e9d9e-f94d-45cb-8d75-01b87d75b1d1" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://webstrar45.fulton.asu.edu/page0/WordCountService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="WordCountService.xsd" MetadataType="Schema" ID="bb478ef8-5f2e-4f1c-9c45-675180ce8bfa" SourceId="1" SourceUrl="http://webstrar45.fulton.asu.edu/Page0/WordCountService.svc?xsd=xsd0" />
+    <MetadataFile FileName="WordCountService.disco" MetadataType="Disco" ID="22f7f8a5-e662-4945-8ea3-978c039932f9" SourceId="1" SourceUrl="http://webstrar45.fulton.asu.edu/Page0/WordCountService.svc?disco" />
+    <MetadataFile FileName="WordCountService.wsdl" MetadataType="Wsdl" ID="504bc66a-047b-4031-a708-cd90b966860b" SourceId="1" SourceUrl="http://webstrar45.fulton.asu.edu/Page0/WordCountService.svc?wsdl" />
+    <MetadataFile FileName="WordCountService1.xsd" MetadataType="Schema" ID="b368932c-c3bd-4379-893b-186a7152ca3b" SourceId="1" SourceUrl="http://webstrar45.fulton.asu.edu/Page0/WordCountService.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

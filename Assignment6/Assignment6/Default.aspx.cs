@@ -198,6 +198,34 @@ namespace Assignment6
             lblWordFilterResult.Text = filteredText;
         }
 
+        protected void btnWordCountService_Click(object sender, EventArgs e)
+        {
+            string input = txtWordCountInput.Text;
+
+            try
+            {
+                // Adjust WordCountRef namespace to match your Service Reference namespace
+                using (var client = new WordCountRef.WordCountServiceClient())
+                {
+                    int count = client.CountWords(input);
+                    lblWordCountResult.Text = "Word count = " + count.ToString();
+                    lblWordCountResult.ForeColor = System.Drawing.Color.Blue;
+                }
+            }
+            catch (Exception ex)
+            {
+                lblWordCountResult.Text = "Error calling Word Count service: " + ex.Message;
+                lblWordCountResult.ForeColor = System.Drawing.Color.Red;
+            }
+        }
+
+        // Helper methods that replicate service logic
+        private string GetServerTimeLocal()
+        {
+            return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        }
+
+
         // Helper methods that replicate service logic
         private string GetServerTimeLocal()
         {

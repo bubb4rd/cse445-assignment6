@@ -149,28 +149,29 @@
                     </tr>
                     <tr>
                         <td>Jon Kruja</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>WebForms Pages (Local)</td>
+                        <td>Login, Register, Member, and Staff pages for user authentication and role-based navigation.</td>
+                        <td>Login, Register, ViewMember, ViewStaff</td>
+                        <td>Input: username/password; Output: authenticated user & role-based content</td>
+                        <td>Login.aspx, Register.aspx, Member.aspx, Staff.aspx</td>
                     </tr>
                     <tr>
                         <td>Jon Kruja</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>Remote WCF Service</td>
+                        <td>Word Count Service that returns the number of words in the input text.</td>
+                        <td>CountWords(string text)</td>
+                        <td>Input: text (string); Output: wordCount (int)</td>
+                        <td>See "Word Count Service TryIt (Jon)" below</td>
                     </tr>
                     <tr>
                         <td>Jon Kruja</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>Integration Component</td>
+                        <td>Default.aspx integration of authentication nav and Word Count TryIt with remote services.</td>
+                        <td>Navbar links, btnWordCountService_Click()</td>
+                        <td>Input: user actions; Output: navigation & service results</td>
+                        <td>Default.aspx</td>
                     </tr>
+
                 </tbody>
             </table>
             
@@ -288,6 +289,29 @@
                 
                 <asp:Label ID="lblHashOutput" runat="server" ForeColor="Brown"></asp:Label>
             </div>
+                        <!-- Jon's Word Count Service TryIt -->
+            <div class="section">
+                <h2>Word Count Service TryIt (Jon)</h2>
+                <p>
+                    <strong>Description:</strong> This TryIt calls Jon's remote WCF Word Count Service.
+                    It sends the text you enter to the service and displays the number of words returned.
+                </p>
+
+                <asp:Label ID="lblWordCountInput" runat="server"
+                           Text="Enter text to count words:" />
+                <br />
+                <asp:TextBox ID="txtWordCountInput" runat="server"
+                             TextMode="MultiLine" Rows="4" Columns="70" />
+                <br /><br />
+
+                <asp:Button ID="btnWordCountService" runat="server"
+                            Text="Call Word Count Service"
+                            OnClick="btnWordCountService_Click" />
+                <br /><br />
+
+                <asp:Label ID="lblWordCountResult" runat="server" ForeColor="Blue" />
+            </div>
+
             <!-- User Control Service TryIt -->
         </div>
     </form>
